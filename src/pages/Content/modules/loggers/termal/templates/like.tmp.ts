@@ -1,4 +1,4 @@
-import { createHorizontalLineAt } from './../utils/index';
+import { createHorizontalLineAt } from '../utils/index';
 import { VariousSystemEvents } from '../../../stream-reader.service';
 
 export const likeTemplate = ({

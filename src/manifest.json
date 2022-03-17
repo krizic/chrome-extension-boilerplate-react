@@ -1,8 +1,9 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "TikTok Pro Tools",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
@@ -16,16 +17,15 @@
   "content_scripts": [
     {
       "matches": ["*://*.tiktok.com/*"],
-      "js": ["contentScript.bundle.js"],
+      "js": ["epos-2.20.0.js", "contentScript.bundle.js"],
       "css": ["content.styles.css"],
       "run_at": "document_idle"
     }
   ],
   "devtools_page": "devtools.html",
   "web_accessible_resources": [
-    {
-      "resources": ["content.styles.css", "icon-128.png", "icon-34.png"],
-      "matches": []
-    }
+    "content.styles.css",
+    "icon-128.png",
+    "icon-34.png"
   ]
 }

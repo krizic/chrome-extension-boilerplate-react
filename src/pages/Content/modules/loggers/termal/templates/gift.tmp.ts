@@ -1,7 +1,7 @@
 import { GiftProvided } from '../../../stream-reader.service';
 import { createHorizontalLineAt, toDataUrl } from '../utils';
 
-export const likeTemplate = async ({
+export const giftTemplate = async ({
   user,
   gift,
   amount,
@@ -18,7 +18,7 @@ export const likeTemplate = async ({
   ctx.font = '32px Open Sans Bold';
   ctx.fillText(`Sent ${amount}x`, 0, 100);
   ctx.font = 'bold 48px Open Sans Bold';
-  ctx.fillText('ROSE', 0, 160);
+  ctx.fillText(gift?.name ?? 'GIFT', 0, 160);
   ctx.font = '48px Open Sans Bold';
   ctx.fillText('THANK YOU', 0, 250);
 

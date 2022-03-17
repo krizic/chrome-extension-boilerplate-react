@@ -35,7 +35,7 @@ export class GiftService {
       });
 
       console.log('Gifts Service', $gifts, this._giftMap);
-    }, 2000);
+    }, 5000);
   }
 
   getGiftById(id: string): Gift | undefined {
