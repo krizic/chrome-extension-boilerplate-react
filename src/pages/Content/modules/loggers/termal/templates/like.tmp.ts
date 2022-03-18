@@ -1,5 +1,5 @@
+import { VariousSystemEvents } from '../../../types';
 import { createHorizontalLineAt } from '../utils/index';
-import { VariousSystemEvents } from '../../../stream-reader.service';
 
 export const likeTemplate = ({
   user,

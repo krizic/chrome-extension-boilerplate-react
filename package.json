@@ -15,6 +15,8 @@
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.1",
     "jquery": "^3.6.0",
+    "pouchdb": "^7.2.2",
+    "pouchdb-find": "^7.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
@@ -27,6 +29,8 @@
     "@babel/preset-react": "^7.14.5",
     "@types/chrome": "^0.0.161",
     "@types/jquery": "^3.5.13",
+    "@types/pouchdb": "^6.4.0",
+    "@types/pouchdb-find": "^6.3.7",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "babel-eslint": "^10.1.0",

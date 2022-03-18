@@ -1,12 +1,11 @@
-import { GiftProvided } from '../../../stream-reader.service';
+import { GiftEvent } from '../../../types';
 import { createHorizontalLineAt, toDataUrl } from '../utils';
 
 export const giftTemplate = async ({
   user,
   gift,
   amount,
-}: GiftProvided): Promise<HTMLCanvasElement> => {
-  // var c = document.createElement("canvas");
+}: GiftEvent): Promise<HTMLCanvasElement> => {
   const canvas = document.createElement('canvas');
   canvas.width = 580;
   canvas.height = 265;
@@ -22,19 +21,24 @@ export const giftTemplate = async ({
   ctx.font = '48px Open Sans Bold';
   ctx.fillText('THANK YOU', 0, 250);
 
+  const [profileBase64, giftBase64] = await Promise.all([
+    toDataUrl(user?.pictureUrl!),
+    toDataUrl(gift?.imageUrl!),
+  ]);
+
   var profileImage = new Image();
   profileImage.onload = function () {
     ctx.drawImage(profileImage, 330, 5, 255, 255);
   };
 
-  profileImage.src = await toDataUrl(user?.pictureUrl!);
+  profileImage.src = profileBase64;
 
   var giftImage = new Image();
   giftImage.onload = function () {
     ctx.drawImage(giftImage, 480, 165, 100, 100);
   };
 
-  giftImage.src = await toDataUrl(gift?.imageUrl!);
+  giftImage.src = giftBase64;
 
   ctx.beginPath();
   ctx.arc(530, 210, 50, 0, 2 * Math.PI, false);

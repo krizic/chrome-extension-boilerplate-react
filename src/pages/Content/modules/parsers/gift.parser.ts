@@ -1,18 +1,19 @@
 import { GiftService } from '../gifts.service';
-import { GiftProvided, SystemEventEnum } from './../stream-reader.service';
+import { GiftEvent, SystemEventEnum } from '../types';
 
 export const parseGiftFromNode = (
   node: HTMLUnknownElement,
   giftService: GiftService
-): GiftProvided => {
+): GiftEvent => {
   try {
     return {
       type: SystemEventEnum.Gift,
       user: {
         pictureUrl: node?.children[0].getElementsByTagName('img')[0].src,
-        username: (
-          node?.children[1]?.children[0]?.children[0] as HTMLSpanElement
-        )?.innerText,
+        username: `@${
+          (node?.children[1]?.children[0]?.children[0] as HTMLSpanElement)
+            ?.innerText
+        }`,
       },
       gift: giftService.getGiftById(
         (

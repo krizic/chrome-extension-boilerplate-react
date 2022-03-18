@@ -1,13 +1,14 @@
-import { SystemEvent, SystemEventEnum } from './../stream-reader.service';
+import { SystemEvent, SystemEventEnum } from '../types';
 
 export const parseFollowFromNode = (node: HTMLUnknownElement): SystemEvent => {
   try {
     return {
       type: SystemEventEnum.Follow,
       user: {
-        username: (
-          node?.children[1]?.children[0]?.children[0] as HTMLSpanElement
-        )?.innerText,
+        username: `@${
+          (node?.children[1]?.children[0]?.children[0] as HTMLSpanElement)
+            ?.innerText
+        }`,
       },
     };
   } catch (ex) {

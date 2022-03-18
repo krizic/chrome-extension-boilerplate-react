@@ -1,35 +1,10 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { Gift, GiftService } from './gifts.service';
+import { GiftService } from './gifts.service';
 import { parseFollowFromNode } from './parsers/follow.parser';
 import { parseGiftFromNode } from './parsers/gift.parser';
 import { parseLikeFromNode } from './parsers/like.parser';
-
-export enum SystemEventEnum {
-  Error = 'Error',
-  Init = 'Init',
-  Gift = 'Gift',
-  Like = 'Like',
-  Follow = 'Follow',
-  Enter = 'Enter',
-}
-
-export interface User {
-  username: string;
-  pictureUrl?: string;
-}
-
-export interface SystemEvent {
-  type: SystemEventEnum;
-  user?: User;
-}
-
-export interface GiftProvided extends SystemEvent {
-  gift?: Gift;
-  amount?: number;
-}
-
-export type VariousSystemEvents = SystemEvent | GiftProvided;
+import { SystemEvent, SystemEventEnum, VariousSystemEvents } from './types';
 
 export class StreamReader {
   private observer: MutationObserver | undefined;

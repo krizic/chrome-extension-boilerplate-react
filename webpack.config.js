@@ -166,6 +166,24 @@ var options = {
         },
       ],
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/assets/OpenSans-Bold.ttf',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/assets/OpenSans-Regular.ttf',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.html'),
       filename: 'newtab.html',

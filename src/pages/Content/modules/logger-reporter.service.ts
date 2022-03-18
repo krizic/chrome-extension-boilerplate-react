@@ -1,9 +1,6 @@
 import { Subscription } from 'rxjs';
-import {
-  StreamReader,
-  SystemEventEnum,
-  GiftProvided,
-} from './stream-reader.service';
+import { StreamReader } from './stream-reader.service';
+import { GiftEvent, SystemEventEnum } from './types';
 
 export class LoggerReporter {
   private streamReader: StreamReader;
@@ -17,7 +14,7 @@ export class LoggerReporter {
     this.restart();
   }
 
-  handleGift = ({ user, gift, amount }: GiftProvided): string => {
+  handleGift = ({ user, gift, amount }: GiftEvent): string => {
     const giftDeclaration = gift?.name
       ? `${amount} ${gift.name}`
       : `an amazing gift`;
@@ -31,7 +28,7 @@ export class LoggerReporter {
 
       switch (event.type) {
         case SystemEventEnum.Gift:
-          const giftText = this.handleGift(event as GiftProvided);
+          const giftText = this.handleGift(event as GiftEvent);
           msg.text = giftText;
           window.speechSynthesis.speak(msg);
           console.log(

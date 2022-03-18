@@ -1,11 +1,6 @@
 import $ from 'jquery';
 
-export interface Gift {
-  id: string;
-  imageUrl: string;
-  name: string;
-  value: number;
-}
+import { Gift } from './types';
 
 export class GiftService {
   private _giftMap: Map<string, Gift> = new Map();

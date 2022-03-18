@@ -1,4 +1,4 @@
-import { VariousSystemEvents } from '../../../stream-reader.service';
+import { VariousSystemEvents } from '../../../types';
 import { createHorizontalLineAt } from '../utils';
 
 export const followTemplate = ({
