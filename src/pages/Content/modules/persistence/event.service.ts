@@ -10,7 +10,9 @@ export class EventService {
     PouchDB.plugin(PouchFind);
 
     this.localDB = new PouchDB(dbName);
-    this.remoteDB = new PouchDB(`http://192.168.1.11:5984/${dbName}`);
+    this.remoteDB = new PouchDB(
+      `http://admin@admin192.168.1.11:5984/${dbName}`
+    );
 
     this.localDB.createIndex({
       index: { fields: ['user.username', 'type'] },

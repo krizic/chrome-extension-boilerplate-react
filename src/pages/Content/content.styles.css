@@ -2,7 +2,7 @@
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
-  src: url('chrome-extension://__MSG_@@extension_id__/OpenSans-Regular.ttf')
+  src: url('chrome-extension://kgdllffddoahphlecehcgfgagaegdofp/OpenSans-Regular.ttf')
     format('truetype');
 }
 
@@ -10,7 +10,7 @@
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: bold;
-  src: url('chrome-extension://__MSG_@@extension_id__/OpenSans-Bol.ttf')
+  src: url('chrome-extension://kgdllffddoahphlecehcgfgagaegdofp/OpenSans-Bol.ttf')
     format('truetype');
 }
 body {

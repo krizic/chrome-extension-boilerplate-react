@@ -26,6 +26,8 @@ export class ThermalReporter {
     this.streamReader.stop();
     this.streamReader.start().subscribe((event) => {
       //const msg = new SpeechSynthesisUtterance();
+      //console.log(event);
+
       switch (event.type) {
         case SystemEventEnum.Gift:
           this.giftHandler(event);
@@ -42,12 +44,19 @@ export class ThermalReporter {
     });
   }
 
-  giftHandler = async (event: VariousSystemEvents) => {
-    console.log('gift received', event);
-    const template = await giftTemplate(event);
-    this.printerService.print(template);
-    const persistedEvent = await this.eventService.persistEvent(event);
-    console.log('gift persisted', persistedEvent);
+  giftHandler = (event: VariousSystemEvents) => {
+    try {
+      console.log('gift received', event);
+      giftTemplate(event).then((template) => {
+        this.printerService.print(template);
+      });
+
+      this.eventService.persistEvent(event).then((persistedEvent) => {
+        console.log('gift persisted', persistedEvent);
+      });
+    } catch (e) {
+      console.log('ERROR - gift handler', e);
+    }
   };
 
   likeHandler = async (event: VariousSystemEvents) => {

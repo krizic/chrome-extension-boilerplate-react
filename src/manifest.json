@@ -23,7 +23,8 @@
     "unlimitedStorage",
     "tts",
     "http://192.168.1.4:8008/*",
-    "http://192.168.1.11/*"
+    "http://192.168.1.11/*",
+    "*://*.tiktok.com/*"
   ],
   "devtools_page": "devtools.html",
   "web_accessible_resources": [
