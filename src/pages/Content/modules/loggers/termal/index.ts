@@ -48,7 +48,7 @@ export class ThermalReporter {
     try {
       console.log('gift received', event);
       giftTemplate(event).then((template) => {
-        this.printerService.print(template);
+        this.printerService.requestPrint(template);
       });
 
       this.eventService.persistEvent(event).then((persistedEvent) => {
@@ -61,7 +61,7 @@ export class ThermalReporter {
 
   likeHandler = async (event: VariousSystemEvents) => {
     console.log('like received', event);
-    this.printerService.print(likeTemplate(event));
+    this.printerService.requestPrint(likeTemplate(event));
     const persistedEvent = await this.eventService.persistEvent(event);
     console.log('like persisted', persistedEvent);
   };
@@ -69,7 +69,7 @@ export class ThermalReporter {
   followHandler = async (event: VariousSystemEvents) => {
     console.log('follow received', event);
     if (await this.eventService.isFollowEventOrganic(event)) {
-      this.printerService.print(followTemplate(event));
+      this.printerService.requestPrint(followTemplate(event));
       const persistedEvent = await this.eventService.persistEvent(event);
       console.log('follow persisted', persistedEvent);
     } else {

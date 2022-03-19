@@ -1,3 +1,5 @@
+import { ReplaySubject, zip } from 'rxjs';
+
 declare global {
   interface Window {
     epson: any;
@@ -9,6 +11,9 @@ export class PrinterService {
   printer: any = null;
   printerReady: boolean = false;
 
+  printBuffer$: ReplaySubject<HTMLCanvasElement> = new ReplaySubject(1);
+  printerStatus$: ReplaySubject<number> = new ReplaySubject(1);
+
   constructor() {
     var everythingLoaded = setInterval(() => {
       if (window.epson) {
@@ -16,6 +21,13 @@ export class PrinterService {
         this.load(); // this is the function that gets called when everything is loaded
       }
     }, 10);
+
+    zip([
+      this.printBuffer$.asObservable(),
+      this.printerStatus$.asObservable(),
+    ]).subscribe(([canvas, timestamp]) => {
+      this.print(canvas);
+    });
   }
 
   load = () => {
@@ -25,16 +37,9 @@ export class PrinterService {
     this.ePosDev!.connect(ipAddress, port, this.callback_connect);
   };
 
-  public print = (canvas: HTMLCanvasElement) => {
-    if (this.printerReady) {
-      this.printer.print(canvas, false);
-    }
-  };
-
   callback_connect = (resultConnect: any) => {
     var deviceId = 'local_printer';
     var options = { crypto: false, buffer: false };
-    this.printerReady = true;
     if (resultConnect == 'OK' || resultConnect == 'SSL_CONNECT_OK') {
       //Retrieves the Printer object
       this.ePosDev.createDevice(
@@ -44,6 +49,7 @@ export class PrinterService {
         this.callback_createDevice
       );
       this.printerReady = true;
+      this.printerStatus$.next(+new Date());
     } else {
       //Displays error messages
     }
@@ -58,11 +64,20 @@ export class PrinterService {
     //Registers the print complete event
     this.printer!.onreceive = (response: any) => {
       if (response.success) {
-        console.log('Printer reported success', response);
         //Displays the successful print message
+        console.log('PRINTER reported COMPLETE', response);
+        this.printerStatus$.next(+new Date());
       } else {
-        //Displays error messages
+        console.log('PRINTER reported ERROR', response);
       }
     };
+  };
+
+  public requestPrint = (canvas: HTMLCanvasElement) => {
+    this.printBuffer$.next(canvas);
+  };
+
+  private print = (canvas: HTMLCanvasElement) => {
+    this.printer.print(canvas, false);
   };
 }
